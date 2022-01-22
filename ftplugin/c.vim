@@ -1,1 +1,1 @@
-nnoremap <leader>c :!make <C-R>%<BS><BS><CR>
+nnoremap <leader>m :!make <C-R>%<BS><BS><CR>
