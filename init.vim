@@ -33,19 +33,15 @@ set mouse=a
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
-    Plug 'gko/vim-coloresque'
     Plug 'preservim/nerdcommenter'
-    Plug 'patstockwell/vim-monokai-tasty'
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
     Plug 'itchyny/lightline.vim'
     Plug 'gruvbox-community/gruvbox'
-    Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
 "SETTING MY COLORSCHEME
 syntax enable
-"let g:vim_monokai_tasty_italic = 1
 let g:gruvbox_italic=1
 colorscheme gruvbox
 let g:lightline = {
