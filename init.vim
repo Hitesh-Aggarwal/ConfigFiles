@@ -10,14 +10,14 @@ set confirm
 set cursorline
 set ignorecase
 set smartcase
+set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-set tabstop=4
 set nofoldenable
 set foldmethod=indent
 set foldlevel=1
-set softtabstop=4
 set termguicolors
 set undofile
 set undodir=$HOME/.local/share/nvim/undofiles//
