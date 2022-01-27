@@ -1,9 +1,9 @@
-"     __  ___                 _                    
+"     __  ___                 _
 "    /  |/  /_  __     _   __(_)___ ___  __________
 "   / /|_/ / / / /    | | / / / __ `__ \/ ___/ ___/
-"  / /  / / /_/ /     | |/ / / / / / / / /  / /__  
-" /_/  /_/\__, /      |___/_/_/ /_/ /_/_/   \___/  
-"        /____/                                    
+"  / /  / / /_/ /     | |/ / / / / / / / /  / /__
+" /_/  /_/\__, /      |___/_/_/ /_/ /_/_/   \___/
+"        /____/
 
 set number relativenumber
 set confirm
@@ -56,3 +56,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>h :Rg<CR>
+
+autocmd BufRead,BufNewFile *.gawk set filetype=awk
+autocmd BufWritePre * %s/\s\+$//e
