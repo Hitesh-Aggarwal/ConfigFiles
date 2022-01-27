@@ -5,7 +5,6 @@
 " /_/  /_/\__, /      |___/_/_/ /_/ /_/_/   \___/  
 "        /____/                                    
 
-"SETTINGS
 set number relativenumber
 set confirm
 set cursorline
@@ -28,19 +27,16 @@ set scrolloff=8
 set incsearch
 set nohlsearch
 set mouse=a
+set splitbelow splitright
 
-"PLUGINS
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'jiangmiao/auto-pairs'
-    Plug 'tpope/vim-surround'
-    Plug 'preservim/nerdcommenter'
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
     Plug 'itchyny/lightline.vim'
     Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
-"SETTING MY COLORSCHEME
 syntax enable
 let g:gruvbox_italic=1
 colorscheme gruvbox
@@ -48,16 +44,6 @@ let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ }
 
-"NERDCOMMENTER SETTINGS
-let g:NERDCreateDefaultMappings = 1
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDDefaultAlign = 'left'
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
-
-"KEYBINDINGS
 let mapleader = ";"
 nnoremap j gj
 nnoremap k gk
