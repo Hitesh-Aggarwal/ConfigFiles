@@ -7,7 +7,6 @@
 
 set number relativenumber
 set confirm
-set cursorline
 set ignorecase
 set smartcase
 set tabstop=4
@@ -34,14 +33,19 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
     Plug 'itchyny/lightline.vim'
+    Plug 'joshdick/onedark.vim'
+    Plug 'danilo-augusto/vim-afterglow'
+    Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'gruvbox-community/gruvbox'
 call plug#end()
 
 syntax enable
+let g:afterglow_italic_comments=1
 let g:gruvbox_italic=1
-colorscheme gruvbox
+colorscheme dracula
+hi Normal guibg=NONE ctermbg=NONE
 let g:lightline = {
-      \ 'colorscheme': 'gruvbox',
+      \ 'colorscheme': 'dracula',
       \ }
 
 let mapleader = ";"
