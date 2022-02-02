@@ -38,7 +38,9 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'goolord/alpha-nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'junegunn/fzf'
-    Plug 'junegunn/fzf.vim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'matbme/JABS.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
@@ -55,6 +57,8 @@ lua require'alpha'.setup(require'alpha.themes.startify'.config)
 lua require'nvim-tree'.setup()
 lua require('nvim-autopairs').setup{}
 lua require'jabs'.setup()
+lua require('telescope').setup()
+lua require('telescope').load_extension('fzy_native')
 
 lua << EOF
 require('lualine').setup {
@@ -82,6 +86,7 @@ let g:tokyonight_lualine_bold = 1
 let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_respect_buf_cwd = 1
 syntax enable
 colorscheme tokyonight
 
@@ -94,11 +99,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-"nnoremap <leader>b :JABSOpen<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>a :Alpha<CR>
-nnoremap <leader>f :Files<CR>
-nnoremap <leader>h :Rg<CR>
+nnoremap <leader>b :Telescope buffers<CR>
+nnoremap <leader>a :Telescope find_files hidden=true<CR>
+nnoremap <leader>f :Telescope find_files<CR>
+nnoremap <leader>t :Telescope treesitter<CR>
+nnoremap <leader>h :Telescope live_grep<CR>
+nnoremap <leader>o :Telescope oldfiles<CR>
 nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>d :bwipe
 
