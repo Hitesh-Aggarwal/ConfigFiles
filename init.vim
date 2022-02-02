@@ -28,13 +28,13 @@ set nobackup
 set noswapfile
 set scrolloff=8
 set mouse=a
+set nowrap
 set splitbelow splitright
 " ################################################
 
 " ################### PLUGINS ####################
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'windwp/nvim-autopairs'
-    Plug 'sunjon/shade.nvim'
     Plug 'goolord/alpha-nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'junegunn/fzf'
@@ -55,18 +55,6 @@ lua require'alpha'.setup(require'alpha.themes.startify'.config)
 lua require'nvim-tree'.setup()
 lua require('nvim-autopairs').setup{}
 lua require'jabs'.setup()
-
-lua << EOF
-require'shade'.setup({
-overlay_opacity = 50,
-opacity_step = 1,
-keys = {
-    brightness_up    = '<C-Up>',
-    brightness_down  = '<C-Down>',
-    toggle           = '<Leader>s',
-    }
-})
-EOF
 
 lua << EOF
 require('lualine').setup {
@@ -90,7 +78,7 @@ EOF
 
 " #################### OTHERS #####################
 let g:tokyonight_style='night'
-let g:tokyonight_italic_comments=1
+let g:tokyonight_lualine_bold = 1
 let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_add_trailing = 1
@@ -106,7 +94,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <leader>b :JABSOpen<CR>
+"nnoremap <leader>b :JABSOpen<CR>
+nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>a :Alpha<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>h :Rg<CR>
