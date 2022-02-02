@@ -8,6 +8,9 @@
 " ################### SETTINGS ###################
 set number relativenumber
 set confirm
+set colorcolumn=80
+set incsearch
+set nohlsearch
 set ignorecase
 set smartcase
 set tabstop=4
@@ -18,15 +21,12 @@ set smartindent
 set nofoldenable
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-set foldlevel=1
 set termguicolors
 set undofile
 set undodir=$HOME/.local/share/nvim/undofiles//
 set nobackup
 set noswapfile
 set scrolloff=8
-set incsearch
-set nohlsearch
 set mouse=a
 set splitbelow splitright
 " ################################################
@@ -40,22 +40,21 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
     Plug 'nvim-lualine/lualine.nvim'
+    Plug 'matbme/JABS.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'kyazdani42/nvim-tree.lua'
-    Plug 'tjdevries/colorbuddy.vim'
-    Plug 'Th3Whit3Wolf/onebuddy'
     Plug 'marko-cerovac/material.nvim'
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 call plug#end()
 " ################################################
 
 " ################# LUA STUFF ####################
-
 lua require'colorizer'.setup()
 lua require'alpha'.setup(require'alpha.themes.startify'.config)
 lua require'nvim-tree'.setup()
 lua require('nvim-autopairs').setup{}
+lua require'jabs'.setup()
 
 lua << EOF
 require'shade'.setup({
@@ -87,7 +86,6 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
-
 " #################################################
 
 " #################### OTHERS #####################
@@ -108,10 +106,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>b :JABSOpen<CR>
+nnoremap <leader>a :Alpha<CR>
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>h :Rg<CR>
 nnoremap <leader>n :NvimTreeToggle<CR>
+nnoremap <leader>d :bwipe
 
 autocmd BufRead,BufNewFile *.gawk set filetype=awk
 autocmd BufWritePre * %s/\s\+$//e
