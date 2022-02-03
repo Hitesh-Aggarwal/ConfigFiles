@@ -7,8 +7,10 @@
 
 " ################### SETTINGS ###################
 set number relativenumber
+set nowrap
 set confirm
 set colorcolumn=80
+set textwidth=79
 set incsearch
 set nohlsearch
 set ignorecase
@@ -28,7 +30,6 @@ set nobackup
 set noswapfile
 set scrolloff=8
 set mouse=a
-set nowrap
 set splitbelow splitright
 " ################################################
 
@@ -36,13 +37,12 @@ set splitbelow splitright
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'windwp/nvim-autopairs'
     Plug 'goolord/alpha-nvim'
+    Plug 'numToStr/Comment.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'junegunn/fzf'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-    " Plug 'matbme/JABS.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'kyazdani42/nvim-tree.lua'
@@ -52,13 +52,21 @@ call plug#end()
 " ################################################
 
 " ################# LUA STUFF ####################
-lua require'colorizer'.setup()
 lua require'alpha'.setup(require'alpha.themes.startify'.config)
 lua require'nvim-tree'.setup()
 lua require('nvim-autopairs').setup{}
-lua require'jabs'.setup()
 lua require('telescope').setup()
 lua require('telescope').load_extension('fzy_native')
+lua require('Comment').setup()
+
+lua << EOF
+require 'colorizer'.setup ({
+    '*';
+    css = { RRGGBBAA = true; names = true };
+    javascript = { RRGGBBAA = true; };
+    html = { RRGGBBAA = true; };
+    },{ rgb_fn = true; names = false; })
+EOF
 
 lua << EOF
 require('lualine').setup {
@@ -83,7 +91,7 @@ require'nvim-treesitter.configs'.setup {
 EOF
 " #################################################
 
-" #################### OTHERS #####################
+" ############### OTHERS SETTINGS #################
 let g:tokyonight_style='night'
 let g:tokyonight_lualine_bold = 1
 let g:nvim_tree_quit_on_open = 1
@@ -92,25 +100,55 @@ let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_respect_buf_cwd = 1
 syntax enable
 colorscheme tokyonight
+" ################################################
 
+
+" ################## KEYBINDINGS #################
+
+" Set the leader key to ";"
 let mapleader = ";"
-nnoremap j gj
-nnoremap k gk
+
+" Autocomplete with tab
 inoremap <TAB> <C-P>
 inoremap <C-P> <TAB>
+
+" Easy window switching
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" Cursor stays in centre while moving through searches
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Set undobreaks at ",.!?"
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
+
+" Move lines up and down with ALT-j and ALT-k
+vnoremap <m-j> :m '>+1<CR>gv=gv
+vnoremap <m-k> :m '<-2<CR>gv=gv
+inoremap <m-j> <esc>:m .+1<CR>==i
+inoremap <m-k> <esc>:m .-2<CR>==i
+nnoremap <m-j> :m .+1<CR>==
+nnoremap <m-k> :m .-2<CR>==
+
+" Commands for plugins
+nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>b :Telescope buffers<CR>
 nnoremap <leader>a :Telescope find_files hidden=true<CR>
-nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>f :Telescope find_files<CR>
 nnoremap <leader>t :Telescope treesitter<CR>
 nnoremap <leader>h :Telescope live_grep<CR>
 nnoremap <leader>o :Telescope oldfiles<CR>
 nnoremap <leader>d :bwipe
 
+" ################################################
+
+" ################ AUTOCOMMANDS ##################
 autocmd BufRead,BufNewFile *.gawk set filetype=awk
 autocmd BufWritePre * %s/\s\+$//e
 " ################################################
