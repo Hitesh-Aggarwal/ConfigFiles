@@ -37,12 +37,10 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'windwp/nvim-autopairs'
     Plug 'goolord/alpha-nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'junegunn/fzf'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-    " Plug 'matbme/JABS.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'kyazdani42/nvim-tree.lua'
@@ -56,7 +54,6 @@ lua require'colorizer'.setup()
 lua require'alpha'.setup(require'alpha.themes.startify'.config)
 lua require'nvim-tree'.setup()
 lua require('nvim-autopairs').setup{}
-lua require'jabs'.setup()
 lua require('telescope').setup()
 lua require('telescope').load_extension('fzy_native')
 
