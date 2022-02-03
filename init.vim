@@ -42,7 +42,7 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'nvim-lualine/lualine.nvim'
-    Plug 'matbme/JABS.nvim'
+    " Plug 'matbme/JABS.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'norcalli/nvim-colorizer.lua'
     Plug 'kyazdani42/nvim-tree.lua'
@@ -76,6 +76,9 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = false,
   },
+  indent = {
+      enable = true
+      }
 }
 EOF
 " #################################################
@@ -101,11 +104,11 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 nnoremap <leader>b :Telescope buffers<CR>
 nnoremap <leader>a :Telescope find_files hidden=true<CR>
+nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>f :Telescope find_files<CR>
 nnoremap <leader>t :Telescope treesitter<CR>
 nnoremap <leader>h :Telescope live_grep<CR>
 nnoremap <leader>o :Telescope oldfiles<CR>
-nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>d :bwipe
 
 autocmd BufRead,BufNewFile *.gawk set filetype=awk
