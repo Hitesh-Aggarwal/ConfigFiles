@@ -8,6 +8,7 @@
 " ################### SETTINGS ###################
 set number relativenumber
 set nowrap
+set autochdir
 set confirm
 set colorcolumn=80
 set textwidth=79
@@ -26,6 +27,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 set termguicolors
 set undofile
 set undodir=$HOME/.local/share/nvim/undofiles//
+"set undodir=C:\Users\Horse\\AppData\Local\nvim-data\undofiles\\
 set nobackup
 set noswapfile
 set scrolloff=8
@@ -41,7 +43,6 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzy-native.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'norcalli/nvim-colorizer.lua'
@@ -56,7 +57,6 @@ lua require'alpha'.setup(require'alpha.themes.startify'.config)
 lua require'nvim-tree'.setup()
 lua require('nvim-autopairs').setup{}
 lua require('telescope').setup()
-lua require('telescope').load_extension('fzy_native')
 lua require('Comment').setup()
 
 lua << EOF
@@ -136,14 +136,18 @@ inoremap <m-k> <esc>:m .-2<CR>==i
 nnoremap <m-j> :m .+1<CR>==
 nnoremap <m-k> :m .-2<CR>==
 
-" Commands for plugins
-nnoremap <leader>n :NvimTreeToggle<CR>
+" Commands for telescope
 nnoremap <leader>b :Telescope buffers<CR>
 nnoremap <leader>a :Telescope find_files hidden=true<CR>
 nnoremap <leader>f :Telescope find_files<CR>
 nnoremap <leader>t :Telescope treesitter<CR>
-nnoremap <leader>h :Telescope live_grep<CR>
+nnoremap <leader>l :Telescope live_grep<CR>
 nnoremap <leader>o :Telescope oldfiles<CR>
+nnoremap <leader>g :Telescope grep_string<CR>
+nnoremap <leader>h :Telescope help_tags<CR>
+
+" Commands for plugins
+nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>d :bwipe
 
 " ################################################
