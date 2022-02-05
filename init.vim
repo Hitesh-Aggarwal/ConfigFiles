@@ -38,8 +38,10 @@ set splitbelow splitright
 " ################### PLUGINS ####################
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'windwp/nvim-autopairs'
+    Plug 'vimwiki/vimwiki'
     Plug 'goolord/alpha-nvim'
     Plug 'numToStr/Comment.nvim'
+    Plug 'godlygeek/tabular'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -62,9 +64,9 @@ lua require('Comment').setup()
 lua << EOF
 require 'colorizer'.setup ({
     '*';
-    css = { RRGGBBAA = true; names = true };
+    css        = { RRGGBBAA = true; names = true };
     javascript = { RRGGBBAA = true; };
-    html = { RRGGBBAA = true; };
+    html       = { RRGGBBAA = true; };
     },{ rgb_fn = true; names = false; })
 EOF
 
@@ -83,10 +85,7 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
-  },
-  indent = {
-      enable = true
-      }
+  }
 }
 EOF
 " #################################################
@@ -98,6 +97,8 @@ let g:nvim_tree_quit_on_open = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_add_trailing = 1
 let g:nvim_tree_respect_buf_cwd = 1
+let g:vimwiki_list = [{'path': 'D:\Documents\vimwiki\',
+            \ 'path_html': 'D:\Documents\vimwikihtml\'}]
 syntax enable
 colorscheme tokyonight
 " ################################################
