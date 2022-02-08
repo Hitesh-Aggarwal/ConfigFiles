@@ -7,6 +7,7 @@
 
 " ################### SETTINGS ###################
 set number relativenumber
+set nowrap
 set autochdir
 set confirm
 set colorcolumn=80
