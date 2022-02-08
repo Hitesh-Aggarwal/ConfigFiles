@@ -10,7 +10,6 @@ set number relativenumber
 set autochdir
 set confirm
 set colorcolumn=80
-set textwidth=79
 set incsearch
 set nohlsearch
 set ignorecase
