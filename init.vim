@@ -97,6 +97,17 @@ colorscheme nord
 " Set the leader key to ";"
 let mapleader = ";"
 
+" Autocomplete with TAB
+" function! CleverTab()
+"     if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+"         return "\<Tab>"
+"     else
+"         return "\<C-Y>"
+"     endif
+" endfunction
+" inoremap <Tab> <C-R>=CleverTab()<CR>
+inoremap <expr> <Tab>       pumvisible() ? "\<C-y>" : "\<Tab>"
+
 " Easy window switching
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -138,7 +149,9 @@ nnoremap <leader>g :Telescope grep_string<CR>
 nnoremap <leader>h :Telescope help_tags<CR>
 
 " Other commands
-nnoremap <leader>n :NERDTreeFind<CR>
+nnoremap <leader>nn :NERDTree<CR>
+nnoremap <leader>nf :NERDTreeFocus<CR>
+nnoremap <leader>nh :NERDTreeFind<CR>
 nnoremap <leader>d :bwipe
 
 " ################################################
@@ -149,9 +162,6 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " Start NERDTree and put the cursor back in the other window.
 autocmd VimEnter * NERDTree D:\Documents/ | wincmd p
-
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 " Close the tab if NERDTree is the only window remaining in it.
 " autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
