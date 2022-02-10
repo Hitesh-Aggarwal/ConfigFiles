@@ -7,6 +7,7 @@
 
 " ################### SETTINGS ###################
 set number relativenumber
+set clipboard+=unnamedplus
 set nowrap
 set autochdir
 set confirm
@@ -36,26 +37,22 @@ set splitbelow splitright
 
 " ################### PLUGINS ####################
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
+    "Plug 'shaunsingh/nord.nvim'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'mhinz/vim-startify'
     Plug 'windwp/nvim-autopairs'
-    Plug 'vimwiki/vimwiki'
-    Plug 'goolord/alpha-nvim'
     Plug 'numToStr/Comment.nvim'
+    Plug 'itchyny/lightline.vim'
     Plug 'godlygeek/tabular'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-lualine/lualine.nvim'
-    Plug 'kyazdani42/nvim-web-devicons'
     Plug 'norcalli/nvim-colorizer.lua'
-    Plug 'kyazdani42/nvim-tree.lua'
-    Plug 'marko-cerovac/material.nvim'
-    Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+    Plug 'preservim/nerdtree'
 call plug#end()
 " ################################################
 
 " ################# LUA STUFF ####################
-lua require'alpha'.setup(require'alpha.themes.startify'.config)
-lua require'nvim-tree'.setup()
 lua require('nvim-autopairs').setup{}
 lua require('telescope').setup()
 lua require('Comment').setup()
@@ -69,14 +66,7 @@ require 'colorizer'.setup ({
     },{ rgb_fn = true; names = false; })
 EOF
 
-lua << EOF
-require('lualine').setup {
-    options = {
-        theme = 'tokyonight'
-        }
-    }
-EOF
-
+"lua require 'nvim-treesitter.install'.compilers = { "clang" }
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   -- ensure_installed = "maintained",
@@ -90,16 +80,15 @@ EOF
 " #################################################
 
 " ############### OTHERS SETTINGS #################
-let g:tokyonight_style='night'
-let g:tokyonight_lualine_bold = 1
-let g:nvim_tree_quit_on_open = 1
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_respect_buf_cwd = 1
-let g:vimwiki_list = [{'path': 'D:\Documents\vimwiki\',
-            \ 'path_html': 'D:\Documents\vimwikihtml\'}]
+
+let g:NERDTreeMouseMode = 3
+let g:NERDTreeDirArrowCollapsible = "-"
+let g:NERDTreeDirArrowExpandable = "+"
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ }
 syntax enable
-colorscheme tokyonight
+colorscheme nord
 " ################################################
 
 
@@ -107,10 +96,6 @@ colorscheme tokyonight
 
 " Set the leader key to ";"
 let mapleader = ";"
-
-" Autocomplete with tab
-inoremap <TAB> <C-P>
-inoremap <C-P> <TAB>
 
 " Easy window switching
 nnoremap <C-h> <C-w>h
@@ -128,13 +113,19 @@ inoremap . .<c-g>u
 inoremap ! !<c-g>u
 inoremap ? ?<c-g>u
 
-" Move lines up and down with ALT-j and ALT-k
+" Move lines up and down with ALT-j and ALT-k and ALT-UP and ALT-DOWN
 vnoremap <m-j> :m '>+1<CR>gv=gv
 vnoremap <m-k> :m '<-2<CR>gv=gv
 inoremap <m-j> <esc>:m .+1<CR>==i
 inoremap <m-k> <esc>:m .-2<CR>==i
 nnoremap <m-j> :m .+1<CR>==
 nnoremap <m-k> :m .-2<CR>==
+vnoremap <m-Down> :m '>+1<CR>gv=gv
+vnoremap <m-Up> :m '<-2<CR>gv=gv
+inoremap <m-Down> <esc>:m .+1<CR>==i
+inoremap <m-Up> <esc>:m .-2<CR>==i
+nnoremap <m-Down> :m .+1<CR>==
+nnoremap <m-Up> :m .-2<CR>==
 
 " Commands for telescope
 nnoremap <leader>b :Telescope buffers<CR>
@@ -146,8 +137,8 @@ nnoremap <leader>o :Telescope oldfiles<CR>
 nnoremap <leader>g :Telescope grep_string<CR>
 nnoremap <leader>h :Telescope help_tags<CR>
 
-" Commands for plugins
-nnoremap <leader>n :NvimTreeToggle<CR>
+" Other commands
+nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader>d :bwipe
 
 " ################################################
@@ -155,4 +146,20 @@ nnoremap <leader>d :bwipe
 " ################ AUTOCOMMANDS ##################
 autocmd BufRead,BufNewFile *.gawk set filetype=awk
 autocmd BufWritePre * %s/\s\+$//e
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree D:\Documents/ | wincmd p
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+" autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+ autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+" Open the existing NERDTree on each new tab.
+ autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
 " ################################################
