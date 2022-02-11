@@ -9,7 +9,6 @@
 set number relativenumber
 set clipboard+=unnamedplus
 set nowrap
-set autochdir
 set confirm
 set colorcolumn=80
 set incsearch
@@ -21,8 +20,9 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smartindent
-set nofoldenable
+set foldenable
 set foldmethod=expr
+set foldlevel=1
 set foldexpr=nvim_treesitter#foldexpr()
 set termguicolors
 set undofile
@@ -37,8 +37,9 @@ set splitbelow splitright
 
 " ################### PLUGINS ####################
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-    "Plug 'shaunsingh/nord.nvim'
+    Plug 'EdenEast/nightfox.nvim'
     Plug 'arcticicestudio/nord-vim'
+    Plug 'vim-scripts/AutoComplPop'
     Plug 'mhinz/vim-startify'
     Plug 'windwp/nvim-autopairs'
     Plug 'numToStr/Comment.nvim'
@@ -85,10 +86,10 @@ let g:NERDTreeMouseMode = 3
 let g:NERDTreeDirArrowCollapsible = "-"
 let g:NERDTreeDirArrowExpandable = "+"
 let g:lightline = {
-      \ 'colorscheme': 'nord',
+      \ 'colorscheme': 'nightfox',
       \ }
 syntax enable
-colorscheme nord
+colorscheme nordfox
 " ################################################
 
 
@@ -98,14 +99,6 @@ colorscheme nord
 let mapleader = ";"
 
 " Autocomplete with TAB
-" function! CleverTab()
-"     if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-"         return "\<Tab>"
-"     else
-"         return "\<C-Y>"
-"     endif
-" endfunction
-" inoremap <Tab> <C-R>=CleverTab()<CR>
 inoremap <expr> <Tab>       pumvisible() ? "\<C-y>" : "\<Tab>"
 
 " Easy window switching
@@ -151,8 +144,7 @@ nnoremap <leader>h :Telescope help_tags<CR>
 " Other commands
 nnoremap <leader>nn :NERDTree<CR>
 nnoremap <leader>nf :NERDTreeFocus<CR>
-nnoremap <leader>nh :NERDTreeFind<CR>
-nnoremap <leader>d :bwipe
+nnoremap <leader>na :NERDTreeFind<CR>
 
 " ################################################
 
@@ -165,10 +157,6 @@ autocmd VimEnter * NERDTree D:\Documents/ | wincmd p
 
 " Close the tab if NERDTree is the only window remaining in it.
 " autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
- autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
 
 " Open the existing NERDTree on each new tab.
  autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
