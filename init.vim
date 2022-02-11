@@ -23,6 +23,7 @@ set smartindent
 set foldenable
 set foldmethod=expr
 set foldlevel=1
+set foldcolumn=2
 set foldexpr=nvim_treesitter#foldexpr()
 set termguicolors
 set undofile
@@ -31,6 +32,7 @@ set undodir=$HOME/.local/share/nvim/undofiles//
 set nobackup
 set noswapfile
 set scrolloff=8
+set sidescrolloff=16
 set mouse=a
 set splitbelow splitright
 " ################################################
@@ -85,6 +87,16 @@ EOF
 let g:NERDTreeMouseMode = 3
 let g:NERDTreeDirArrowCollapsible = "-"
 let g:NERDTreeDirArrowExpandable = "+"
+"let g:startify_bookmarks = [ {'c': '~\AppData\Local\nvim\init.vim' }]
+let g:startify_bookmarks = [ {'c': '~/.config/nvim/init.vim' }]
+let g:startify_change_to_dir = 0
+let g:startify_lists = [
+    \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+    \ { 'type': 'files',     'header': ['   MRU']            },
+    \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+    \ { 'type': 'sessions',  'header': ['   Sessions']       },
+    \ { 'type': 'commands',  'header': ['   Commands']       },
+    \ ]
 let g:lightline = {
       \ 'colorscheme': 'nightfox',
       \ }
@@ -145,6 +157,10 @@ nnoremap <leader>h :Telescope help_tags<CR>
 nnoremap <leader>nn :NERDTree<CR>
 nnoremap <leader>nf :NERDTreeFocus<CR>
 nnoremap <leader>na :NERDTreeFind<CR>
+
+" Go to next and previous files easily
+nnoremap <C-n> :next<CR>
+nnoremap <C-p> :previous<CR>
 
 " ################################################
 
