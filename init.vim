@@ -40,14 +40,11 @@ call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'mhinz/vim-startify'
     Plug 'windwp/nvim-autopairs'
-    Plug 'numToStr/Comment.nvim'
-    Plug 'preservim/nerdtree'
 call plug#end()
 " ################################################
 
 " ################# LUA STUFF ####################
 lua require('nvim-autopairs').setup{}
-lua require('Comment').setup()
 
 lua << EOF
 require('lualine').setup {
@@ -62,10 +59,6 @@ EOF
 
 " ############### OTHERS SETTINGS #################
 
-let g:NERDTreeMouseMode = 3
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeDirArrowCollapsible = '-'
-let g:NERDTreeDirArrowExpandable = '+'
 "let g:startify_bookmarks = [ {'c': '~\AppData\Local\nvim\init.vim' }]
 let g:startify_bookmarks = [ {'c': '~/.config/nvim/init.vim' }]
 let g:startify_change_to_dir = 0
@@ -121,10 +114,6 @@ inoremap <m-Down> <esc>:m .+1<CR>==i
 inoremap <m-Up> <esc>:m .-2<CR>==i
 nnoremap <m-Down> :m .+1<CR>==
 nnoremap <m-Up> :m .-2<CR>==
-
-" Nerd Tree commands
-nnoremap <leader>nn :NERDTree<CR>
-nnoremap <leader>nf :NERDTreeFind<CR>
 
 " Go to next and previous buffers easily
 nnoremap <C-n> :bnext<CR>
