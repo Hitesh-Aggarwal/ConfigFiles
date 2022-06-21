@@ -6,7 +6,7 @@
 #        /____/
 
 o() {
-    local name=$(fzf +m --preview 'bat --theme gruvbox-dark --style=numbers --color=always --line-range :500 {}')
+    local name=$(fzf +m --preview 'bat --style=numbers --color=always --line-range :500 {}')
     if [ -f "$name" ]
     then
         case $(file -b --mime-type - < "$name") in

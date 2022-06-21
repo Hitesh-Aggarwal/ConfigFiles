@@ -1,2 +1,1 @@
-nnoremap <leader>m :!chmod u+x <C-R>%<CR>
-nnoremap <leader>r :!./<C-R>%<CR>
+nnoremap <leader>r :w<CR>:!chmod u+x <C-R>% && ./<C-R>%<CR>
