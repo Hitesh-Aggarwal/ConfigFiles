@@ -7,6 +7,7 @@
 
 " ################### SETTINGS ###################
 set number
+set autochdir
 set nowrap
 set confirm
 set incsearch
@@ -31,7 +32,7 @@ set splitbelow splitright
 
 " ################### PLUGINS ####################
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-    Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+    Plug 'navarasu/onedark.nvim'
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'vim-scripts/AutoComplPop'
@@ -71,7 +72,7 @@ EOF
 " ############### OTHERS SETTINGS #################
 
 syntax enable
-colorscheme tokyonight
+colorscheme onedark
 " ################################################
 
 " ################## KEYBINDINGS #################
