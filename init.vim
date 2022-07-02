@@ -11,7 +11,6 @@ set path+=**
 set nowrap
 set confirm
 set incsearch
-set completeopt=menu,menuone,noselect
 set nohlsearch
 set ignorecase
 set smartcase
