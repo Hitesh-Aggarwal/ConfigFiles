@@ -7,10 +7,11 @@
 
 " ################### SETTINGS ###################
 set number
-set autochdir
+set path+=**
 set nowrap
 set confirm
 set incsearch
+set completeopt=menu,menuone,noselect
 set nohlsearch
 set ignorecase
 set smartcase
@@ -30,50 +31,9 @@ set mouse=a
 set splitbelow splitright
 " ################################################
 
-" ################### PLUGINS ####################
-call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-    Plug 'navarasu/onedark.nvim'
-    Plug 'nvim-lualine/lualine.nvim'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'vim-scripts/AutoComplPop'
-    Plug 'windwp/nvim-autopairs'
-    Plug 'preservim/nerdcommenter'
-call plug#end()
-" ################################################
-
-" ################# LUA STUFF ####################
-lua require('nvim-autopairs').setup{}
-
-lua << EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-EOF
-
-lua << EOF
-require('lualine').setup {
-  options = {
-    icons_enabled = false,
-    theme = 'tokyonight',
-  },
-}
-EOF
-
-" #################################################
-
-" ############### OTHERS SETTINGS #################
-
 syntax enable
-colorscheme onedark
-" ################################################
+set background=light
+colorscheme solarized8
 
 " ################## KEYBINDINGS #################
 
@@ -81,8 +41,14 @@ colorscheme onedark
 let mapleader = ";"
 
 " Autocomplete with TAB
-inoremap <tab> <c-y>
-inoremap <c-y> <tab>
+function! CleverTab()
+    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+        return "\<Tab>"
+    else
+        return "\<C-P>"
+    endif
+endfunction
+inoremap <Tab> <C-R>=CleverTab()<CR>
 
 " Easy window switching
 nnoremap <C-h> <C-w>h
@@ -115,8 +81,8 @@ nnoremap <C-n> :bnext<CR>
 nnoremap <C-p> :bprevious<CR>
 
 " Quickly open config file
-"nnoremap <leader>c :e ~\AppData\Local\nvim\init.vim<CR>
-nnoremap <leader>c :e ~/.config/nvim/init.vim<CR>
+nnoremap <leader>c :e ~\AppData\Local\nvim\init.vim<CR>
+"nnoremap <leader>c :e ~/.config/nvim/init.vim<CR>
 
 " ################################################
 
@@ -133,6 +99,6 @@ function! s:insert_gates()
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
-au BufNewFile *.c 0r ~/.config/nvim/skel/c.skel
-au BufNewFile *.cpp 0r ~/.config/nvim/skel/cpp.skel
-au BufNewFile *.html 0r ~/.config/nvim/skel/html.skel
+au BufNewFile *.c 0r ~AppData\Local\nvim\skel\c.skel
+au BufNewFile *.cpp 0r ~AppData\Local\nvim\skel\cpp.skel
+au BufNewFile *.html 0r ~AppData\Local\nvim\skel\html.skel
