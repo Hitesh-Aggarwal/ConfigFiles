@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='D:/Documents/DSA_C/Graph Algorithms'
+let g:netrw_dirhist_5='D:/Documents/DSA_C'
+let g:netrw_dirhist_4='D:\Documents'
+let g:netrw_dirhist_3='D:/Documents/DSA_C/Graph Algorithms'
+let g:netrw_dirhist_2='D:/Documents/DSA_C'
+let g:netrw_dirhist_1='D:\Documents'
+let g:netrw_dirhist_0='D:/Documents/DSA_C/Graph Algorithms'
+let g:netrw_dirhist_9='D:/Documents/DSA_C'
+let g:netrw_dirhist_8='D:\Documents'
+let g:netrw_dirhist_7='D:/Documents/DSA_C/Graph Algorithms'
